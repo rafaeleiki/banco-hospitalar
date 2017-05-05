@@ -96,11 +96,12 @@ CREATE TABLE internacao (
 CREATE TABLE descricao_internacao (
   cpf_medico varchar(11),
   cpf_paciente varchar(11),
+  data_consulta timestamp WITH TIME ZONE,
   data_entrada timestamp WITH TIME ZONE,
   data_saida timestamp WITH TIME ZONE,
   leito varchar(50) NOT NULL,
-  FOREIGN KEY(cpf_medico, cpf_paciente, data_consulta)
-    REFERENCES consulta(cpf_medico, cpf_paciente, data_consulta),
+  FOREIGN KEY(cpf_medico, cpf_paciente, data_consulta, data_entrada)
+    REFERENCES internacao(cpf_medico, cpf_paciente, data_consulta, data_entrada),
   PRIMARY KEY(cpf_medico, cpf_paciente, data_entrada)
 );
 
@@ -142,7 +143,7 @@ CREATE TABLE consulta_enfermidade (
   cod_enfermidade integer REFERENCES enfermidade(cod_enfermidade),
   FOREIGN KEY(cpf_medico, cpf_paciente, data_consulta)
     REFERENCES consulta(cpf_medico, cpf_paciente, data_consulta),
-  PRIMARY KEY(cpf_medico, cpf_medico, data_consulta, cod_enfermidade)
+  PRIMARY KEY(cpf_medico, cpf_paciente, data_consulta, cod_enfermidade)
 );
 
 CREATE TABLE anamnese_remedio (
@@ -174,7 +175,7 @@ CREATE TABLE consulta_procedimento (
 CREATE TABLE profissional_procedimento (
   cpf varchar(11) REFERENCES profissional_saude(cpf),
   cod_procedimento integer REFERENCES procedimento(cod_procedimento),
-  PRIMARY KEY(matricula, cod_procedimento)
+  PRIMARY KEY(cpf, cod_procedimento)
 );
 
 CREATE TABLE internacao_remedio (
@@ -194,7 +195,7 @@ CREATE TABLE internacao_remedio (
 
 CREATE TABLE internacao_cirurgia (
   cpf_medico varchar(11),
-  cpf varchar(11),
+  cpf_paciente varchar(11),
   data_consulta timestamp WITH TIME ZONE,
   data_entrada timestamp WITH TIME ZONE,
   cod_procedimento integer REFERENCES cirurgia(cod_procedimento),
