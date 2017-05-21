@@ -1,0 +1,15 @@
+﻿INSERT INTO public.profissional_saude  VALUES (14545675311, 1245);
+INSERT INTO public.profissional_saude  VALUES (34502340321, 3456);
+INSERT INTO public.profissional_saude  VALUES (39829897882, 3457);
+INSERT INTO public.profissional_saude  VALUES (39529859821, 3534);
+INSERT INTO public.profissional_saude  VALUES (12899911122, 3859);
+INSERT INTO public.profissional_saude  VALUES (79024523578, 4224);
+INSERT INTO public.profissional_saude  VALUES (45793412345, 4565);
+INSERT INTO public.profissional_saude  VALUES (24639518348, 4564);
+INSERT INTO public.profissional_saude  VALUES (34678923412, 5636);
+INSERT INTO public.profissional_saude  VALUES (39809294201, 5798);
+INSERT INTO public.profissional_saude  VALUES (79392848399, 6931);
+INSERT INTO public.profissional_saude  VALUES (23590844789, 7967);
+INSERT INTO public.profissional_saude  VALUES (19394893821, 8472);
+INSERT INTO public.profissional_saude  VALUES (35012939410, 9486);
+INSERT INTO public.profissional_saude  VALUES (67534512344, 9583);
