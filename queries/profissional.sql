@@ -19,6 +19,4 @@
 
 -- Consulta 
     -- Consulta da área de um profissional 
-    SELECT ma.area as Area from matricula_area ma
-        INNER JOIN profissional_saude ps ON ps.matricula = ma.matricula
-        WHERE cpf = <cpf>
+    SELECT ma.area as Area from matricula_area NATURAL JOIN profissional_saude WHERE cpf = <cpf>
