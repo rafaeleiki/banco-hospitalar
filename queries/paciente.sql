@@ -15,10 +15,14 @@
 -- Consulta
 
     -- Consulta de dados de um paciente
-    SELECT * FROM paciente NATURAL JOIN pessoa WHERE cpf = <cpf>;
+    SELECT * 
+    FROM paciente NATURAL JOIN pessoa 
+    WHERE cpf = <cpf>;
 
     -- Consulta do histórico de consultas de um paciente
-    SELECT * FROM consulta WHERE cpf_paciente = <cpf_paciente>;
+    SELECT * 
+    FROM consulta 
+    WHERE cpf_paciente = <cpf_paciente>;
 
     -- Consulta do histórico de exames de um paciente
     SELECT * FROM consulta 
@@ -64,3 +68,13 @@
         NATURAL JOIN enfermidade_remedio
         NATURAL JOIN remedio
         WHERE cpf_paciente = <cpf_paciente>;        
+        
+        
+    -- Consulta exames nao realizados de um paciente
+      SELECT * FROM consulta 
+        NATURAL JOIN consulta_procedimento
+        NATURAL JOIN procedimento
+        NATURAL JOIN exame 
+        NATURAL JOIN descricao_procedimento
+        WHERE cpf_paciente = <cpf_paciente> AND dados IS NULL  
+    
