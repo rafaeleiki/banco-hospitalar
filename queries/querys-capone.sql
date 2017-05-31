@@ -103,13 +103,13 @@ INSERT INTO internacao_remedio VALUES (<cpf_medico>,<cpf_paciente>,
 										<data_administração>,
 										<cpf_profissional>, <dosagem>)
 
--- Consultar dados de uma administração
-SELECT ir.data_consulta, ir.data_entrada, med.nome AS medico,
+-- Consultar dados de uma administração teste ok 
+SELECT ir.data_consulta, ir.data_entrada,ir.data_administracao, med.nome AS medico,
 pac.nome AS paciente, prof.nome as profissional, r.nome_remedio,
 ir.dosagem
-FROM internacao_remedio ir, (pessoa NATURAL JOIN medico) med,
-							(pessoa NATURAL JOIN paciente) pac,
-							(pessoa NATURAL JOIN profissional) prof,
+FROM internacao_remedio ir, dadosmedico med,
+							dadospaciente pac,
+							dadosprofissional prof,
 							remedio r
 WHERE 	ir.cpf_medico 			= <cpf_medico> 			AND
 		ir.cpf_paciente 		= <cpf_paciente>		AND
@@ -118,7 +118,9 @@ WHERE 	ir.cpf_medico 			= <cpf_medico> 			AND
 		ir.cod_remedio			= <cod_remedio>			AND
 		ir.data_administracao	= <data_administracao>	AND
 		ir.cpf_medico 			= med.cpf				AND
-		ir.cpf_paciente 		= pac.cpf
+		ir.cpf_paciente 		= pac.cpf               AND
+        ir.cpf_profissional 	= prof.cpf	            AND
+		ir.cod_remedio = r.cod_remedio
 
 -- Consultar o profissional de saúdo que administrou um remédio
 SELECT ir.data_consulta, ir.data_entrada, med.nome AS medico,
