@@ -1,4 +1,4 @@
-NATURAL JOIN profissional_saude/*Remédios
+/*Remédios
 Cadastrar remédio; 				Feito
 Receitar um remédio;			Feito
 
@@ -68,7 +68,8 @@ INSERT INTO internacao VALUES (<cpf_medico>, <cpf_paciente>,
 UPDATE internacao WHERE SET
 -- Busca de internação por data
 -- Data da consulta
-SELECT  inter.data_consulta, inter.data_entrada, med.nome, pac.nome
+SELECT  inter.data_consulta, inter.data_entrada,
+		med.nome AS medico, pac.nome AS paciente
 -- BEWARE HERE BE QUERYS
 FROM 	internacao inter, (pessoa NATURAL JOIN medico) med,
 						  (pessoa NATURAL JOIN paciente) pac
@@ -109,7 +110,7 @@ pac.nome AS paciente, prof.nome as profissional, r.nome_remedio,
 ir.dosagem
 FROM internacao_remedio ir, (pessoa NATURAL JOIN medico) med,
 							(pessoa NATURAL JOIN paciente) pac,
-							(pessoa NATURAL JOIN profissional) prof,
+							(pessoa NATURAL JOIN profissional_saude) prof,
 							remedio r
 WHERE 	ir.cpf_medico 			= <cpf_medico> 			AND
 		ir.cpf_paciente 		= <cpf_paciente>		AND
@@ -118,13 +119,17 @@ WHERE 	ir.cpf_medico 			= <cpf_medico> 			AND
 		ir.cod_remedio			= <cod_remedio>			AND
 		ir.data_administracao	= <data_administracao>	AND
 		ir.cpf_medico 			= med.cpf				AND
-		ir.cpf_paciente 		= pac.cpf
+		ir.cpf_paciente 		= pac.cpf				AND
+		ir.cpf_profissional		= prof.cpf
 
--- Consultar o profissional de saúdo que administrou um remédio
+-- Mesma coisa da de cima
+-- Consultar o profissional de saúde que administrou um remédio
 SELECT ir.data_consulta, ir.data_entrada, med.nome AS medico,
 pac.nome AS paciente, prof.nome as profissional, r.nome_remedio,
 ir.dosagem
-FROM internacao_remedio ir, (pessoa NATURAL JOIN profissional_saude) prof,
+FROM internacao_remedio ir, (pessoa NATURAL JOIN medico) med,
+							(pessoa NATURAL JOIN paciente) pac,
+							(pessoa NATURAL JOIN profissional_saude) prof,
 							remedio r
 WHERE 	ir.cpf_medico 			= <cpf_medico> 			AND
 		ir.cpf_paciente 		= <cpf_paciente>		AND
@@ -132,6 +137,8 @@ WHERE 	ir.cpf_medico 			= <cpf_medico> 			AND
 		ir.data_entrada 		= <data_entrada>		AND
 		ir.cod_remedio			= <cod_remedio>			AND
 		ir.data_administracao	= <data_administracao>	AND
+		ir.cpf_medico 			= med.cpf				AND
+		ir.cpf_paciente 		= pac.cpf				AND
 		ir.cpf_profissional		= prof.cpf
 
 
@@ -180,7 +187,7 @@ INSERT INTO internacao_cirurgia VALUES (<cpf_medico>, <cpf_paciente>,
 	<data_consulta>, <data_entrada>, <cod_procedimento>)
 
 -- Consultar cirurgias em um dia por horário
-SELECT	c.data_procedimento, c.sala, c.cod_procedimento
+SELECT	c.data_procedimento, c.sala, c.nome_procedimento
 FROM	(procedimento NATURAL JOIN cirurgia) c
 WHERE	c.data_procedimento BETWEEN <data1> and <data2>
 
