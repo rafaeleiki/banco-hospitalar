@@ -1,6 +1,6 @@
 base_path = "./seeds/"
 files = %w(pessoa matricula_area paciente profissional_saude remedio
-           medico enfermeiro enfermidade descricao_remedio)
+           medico enfermeiro enfermidade descricao_remedio anamnese cirurgia consulta consulta_enfermidade procedimento profissional_procedimento internacao internacao_remedio enfermidade_remedio descricao_procedimento descricao_internacao descricao_enfermidade consulta_procedimento)
 full_sql = []
 
 files.each do |file_name|
