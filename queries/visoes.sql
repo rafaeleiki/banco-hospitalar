@@ -18,3 +18,21 @@
         SELECT *
         FROM pessoa NATURAL JOIN paciente
         
+    
+     -- Dados completos de um remedio
+
+        CREATE VIEW dadosremedio AS
+        SELECT *
+        FROM remedio NATURAL JOIN descricao_remedio
+        
+     -- Dados completos de um procedimento
+
+        CREATE VIEW dadosprocedimento AS
+        SELECT *
+        FROM procedimento NATURAL JOIN descricao_procedimento 
+        
+    -- Dados completos de uma cirurgia
+
+        CREATE VIEW dadoscirurgia AS
+        SELECT *
+        FROM dadosprocedimento NATURAL JOIN cirurgia 
