@@ -15,6 +15,7 @@
         WHERE data_consulta BETWEEN data_inicio AND data_fim'
       LANGUAGE 'sql';
 
+
     CREATE OR REPLACE FUNCTION lista_anamnese_medico_paciente_periodo(
         param_cpf_medico varchar, param_cpf_paciente varchar,
         data_inicio timestamp, data_fim timestamp)
@@ -26,8 +27,10 @@
           AND cpf_paciente = param_cpf_paciente'
       LANGUAGE 'sql';
 
+
     CREATE OR REPLACE FUNCTION historico_anamnese_paciente(param_cpf_paciente varchar)
       RETURNS SETOF anamnese
       AS
       'SELECT * FROM anamnese WHERE cpf_paciente = param_cpf_paciente'
       LANGUAGE 'sql';
+      

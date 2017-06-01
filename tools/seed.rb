@@ -9,5 +9,5 @@ RELATIONS.each do |relation_name|
   full_sql.push(file.read)
 end
 
-seed_file = File.open('./generated_seed.sql', 'w')
-seed_file.write(full_sql.join("\n"))
+output_file = File.open('./generated_seed.sql', 'w')
+output_file.write(full_sql.join("\n"))
