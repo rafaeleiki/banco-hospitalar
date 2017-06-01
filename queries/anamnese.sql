@@ -7,4 +7,7 @@
 -- Consulta
     
     -- Listando anamnese
-    SELECT * FROM anamnese WHERE cpf_medico = <cpf_medico> AND cpf_paciente = <cpf_paciente> AND data_consulta BETWEEN <data_inicio> AND <data_fim>
+    SELECT * 
+    FROM anamnese 
+    WHERE cpf_medico = <cpf_medico> AND 
+          cpf_paciente = <cpf_paciente> AND data_consulta BETWEEN <data_inicio> AND <data_fim>
