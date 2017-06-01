@@ -1,4 +1,4 @@
-﻿INSERT INTO procedimento VALUES (23445, 'Cesáriana', '2011-08-23 08:22:12.46-03');
+INSERT INTO procedimento VALUES (23445, 'Cesáriana', '2011-08-23 08:22:12.46-03');
 INSERT INTO procedimento VALUES (39485, 'Angioplastia', '2011-05-28 07:30:00.66-03');
 INSERT INTO procedimento VALUES (96984, 'Apendicectomia', '2015-03-22 08:00:00.66-03');
 INSERT INTO procedimento VALUES (12435, 'Nefrolitotomia percutânea', '2011-05-12 10:15:11.23-03');

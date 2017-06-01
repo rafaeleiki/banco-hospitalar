@@ -1,4 +1,4 @@
-﻿INSERT INTO enfermidade_remedio(
+INSERT INTO enfermidade_remedio(
             cod_enfermidade, cod_remedio)
     VALUES (1, 1);
 INSERT INTO enfermidade_remedio VALUES (2,2);
@@ -23,5 +23,3 @@ INSERT INTO enfermidade_remedio VALUES (17, 6);
 INSERT INTO enfermidade_remedio VALUES (18, 14);
 INSERT INTO enfermidade_remedio VALUES (19, 6);
 INSERT INTO enfermidade_remedio VALUES (19, 15);
-
-

@@ -1,4 +1,4 @@
-﻿INSERT INTO public.remedio(
+INSERT INTO public.remedio(
             cod_remedio, nome_remedio)
     VALUES (1, 'Otociriax');
 INSERT INTO public.remedio    VALUES (2, 'Zyxen');

@@ -1,4 +1,4 @@
-﻿INSERT INTO consulta_procedimento(
+INSERT INTO consulta_procedimento(
             cod_procedimento, cpf_medico, cpf_paciente, data_consulta)
     VALUES (23445, 45793412345, 57923568955, '2011-08-23 08:22:12.46-03');
 

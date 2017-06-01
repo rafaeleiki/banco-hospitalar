@@ -1,4 +1,4 @@
-﻿INSERT INTO public.profissional_saude  VALUES (14545675311, 1245);
+INSERT INTO public.profissional_saude  VALUES (14545675311, 1245);
 INSERT INTO public.profissional_saude  VALUES (34502340321, 3456);
 INSERT INTO public.profissional_saude  VALUES (39829897882, 3457);
 INSERT INTO public.profissional_saude  VALUES (39529859821, 3534);

@@ -1,4 +1,4 @@
-﻿INSERT INTO public.enfermidade    VALUES (1, 'Otite');
+INSERT INTO public.enfermidade    VALUES (1, 'Otite');
 INSERT INTO public.enfermidade    VALUES (2, 'Sinusite');
 INSERT INTO public.enfermidade    VALUES (3, 'Intoxicação alimentar');
 INSERT INTO public.enfermidade    VALUES (4, 'Infarto do Miocardio');
