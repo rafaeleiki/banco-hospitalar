@@ -8,3 +8,8 @@ INSERT INTO exame VALUES (73859, 'ultra.jpg', pg_read_binary_file('import/ultra.
 INSERT INTO exame VALUES (49853, 'uabdomen.jpg', pg_read_binary_file('import/uabdomen.jpg')::bytea);
 INSERT INTO exame VALUES (34783, 'eletrocard.pdf', pg_read_binary_file('import/eletrocard.pdf')::bytea);
 INSERT INTO exame VALUES (32789, 'ressonancia.jpg', pg_read_binary_file('import/ressonancia.jpg')::bytea);
+
+INSERT INTO exame(cod_procedimento) VALUES (12435);
+INSERT INTO exame(cod_procedimento) VALUES (72940);
+INSERT INTO exame(cod_procedimento) VALUES (92738);
+INSERT INTO exame(cod_procedimento) VALUES (68933);

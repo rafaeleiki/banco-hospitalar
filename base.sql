@@ -118,8 +118,8 @@ CREATE TABLE descricao_procedimento (
 
 CREATE TABLE exame (
   cod_procedimento integer PRIMARY KEY REFERENCES procedimento(cod_procedimento),
-  nome_arquivo varchar NOT NULL,
-  dados bytea NOT NULL
+  nome_arquivo varchar,
+  dados bytea
 );
 
 CREATE TABLE cirurgia (

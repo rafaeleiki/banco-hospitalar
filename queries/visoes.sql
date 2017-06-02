@@ -83,3 +83,14 @@
           ON  c.cpf_medico = cp.cpf_medico
           AND c.cpf_paciente = cp.cpf_paciente
           AND c.data_consulta = cp.data_consulta;
+
+    -- Exames pendentes
+
+        CREATE OR REPLACE VIEW exames_pendentes AS
+        SELECT cod_procedimento, cpf_medico, cpf_paciente,
+               data_consulta,
+               nome_procedimento, data_procedimento
+        FROM exame
+          NATURAL JOIN procedimento
+          NATURAL JOIN consulta_procedimento
+          WHERE dados IS NULL;
