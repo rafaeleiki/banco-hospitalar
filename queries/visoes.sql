@@ -25,6 +25,12 @@
         SELECT *
         FROM remedio NATURAL JOIN descricao_remedio
         
+    -- Dados completos de uma enfermidade
+
+        CREATE VIEW dadosenfermidade AS
+        SELECT *
+        FROM enfermidade NATURAL JOIN descricao_enfermidade
+        
      -- Dados completos de um procedimento
 
         CREATE VIEW dadosprocedimento AS
