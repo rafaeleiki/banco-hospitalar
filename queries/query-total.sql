@@ -1,84 +1,85 @@
 -- Atualização
-	UPDATE paciente SET ocupacao = <ocupacao>,
-                    	etnia = <etnia>,
-                    	local_nascimento = <local_nascimento>,
-                    	escolaridade = <escolaridade>,
-                    	religiao = <religiao>,
-                    	convenio = <convenio>
+UPDATE paciente SET ocupacao = <ocupacao>,
+                	etnia = <etnia>,
+                	local_nascimento = <local_nascimento>,
+                	escolaridade = <escolaridade>,
+                	religiao = <religiao>,
+                	convenio = <convenio>
 WHERE cpf = <cpf>;
 
 -- Consulta de dados de um paciente
-	SELECT *
-	FROM dadospaciente
-	WHERE cpf = <cpf>;
+SELECT *
+FROM dadospaciente
+WHERE cpf = <cpf>;
 
 -- Consulta do histórico de consultas de um paciente
-	SELECT *
-	FROM consulta
-	WHERE cpf_paciente = <cpf_paciente>;
+SELECT *
+FROM consulta
+WHERE cpf_paciente = <cpf_paciente>;
 
 -- Consulta do histórico de exames de um paciente
-	SELECT *
-	FROM exame
-	NATURAL JOIN procedimento
-	NATURAL JOIN consulta_procedimento
-	NATURAL JOIN consulta
-	WHERE cpf_paciente = cpf
-	AND data_procedimento BETWEEN inicio AND fim'
+SELECT *
+FROM exame
+NATURAL JOIN procedimento
+NATURAL JOIN consulta_procedimento
+NATURAL JOIN consulta
+WHERE cpf_paciente = cpf
+AND data_procedimento BETWEEN inicio AND fim
 
 
 -- Consulta do histórico de internações de um paciente
-	SELECT data_entrada, data_saida, leito
-   	FROM consulta NATURAL JOIN descricao_internacao
-    	WHERE cpf_paciente = <cpf_paciente>;
+SELECT data_entrada, data_saida, leito
+FROM consulta NATURAL JOIN descricao_internacao
+WHERE cpf_paciente = <cpf_paciente>;
 
 
 -- Consulta do histórico de cirurgias de um paciente
-	SELECT cod_procedimento, data_procedimento, nome_procedimento, descricao,sala
- 	FROM consulta NATURAL JOIN consulta_procedimento NATURAL JOIN dadoscirurgia
-    	WHERE cpf_paciente = <cpf_paciente>;
+SELECT cod_procedimento, data_procedimento, nome_procedimento, descricao,sala
+FROM consulta NATURAL JOIN consulta_procedimento NATURAL JOIN dadoscirurgia
+WHERE cpf_paciente = <cpf_paciente>;
 
 -- Consulta do histórico de procedimentos de um paciente
-	SELECT * FROM consulta
-    	NATURAL JOIN consulta_procedimento
-    	NATURAL JOIN procedimento
-    	WHERE cpf_paciente = <cpf_paciente>;
+SELECT * FROM consulta
+NATURAL JOIN consulta_procedimento
+NATURAL JOIN procedimento
+WHERE cpf_paciente = <cpf_paciente>;
 
 -- Consulta do histórico de remédios de um paciente
-	  SELECT e.nome_enfermidade, r.nome_remedio, r.indicacao, r.dosagem_maxima
+SELECT e.nome_enfermidade, r.nome_remedio, r.indicacao, r.dosagem_maxima
 FROM consulta
-    	NATURAL JOIN consulta_enfermidade
-    	NATURAL JOIN enfermidade_remedio
-    	NATURAL JOIN dadosremedio r
-    	NATURAL JOIN enfermidade e
-    	WHERE cpf_paciente = <cpf_paciente>;
+	NATURAL JOIN consulta_enfermidade
+	NATURAL JOIN enfermidade_remedio
+	NATURAL JOIN dadosremedio r
+	NATURAL JOIN enfermidade e
+WHERE cpf_paciente = <cpf_paciente>;
 
 -- Consulta do histórico de anamneses de um paciente
-	SELECT * from consulta
-    	NATURAL JOIN anamnese
-    	WHERE cpf_paciente = <cpf_paciente>;
+SELECT * from consulta
+NATURAL JOIN anamnese
+WHERE cpf_paciente = <cpf_paciente>;
 
 
 -- Consulta do histórico de enfermidades de um paciente
 SELECT cod_enfermidade, nome_enfermidade, descricao
 FROM (paciente p  INNER JOIN consulta c ON p.cpf = c.cpf_paciente)
-NATURAL JOIN consulta_enfermidade
-NATURAL JOIN enfermidade
-NATURAL JOIN descricao_enfermidade
+	NATURAL JOIN consulta_enfermidade
+	NATURAL JOIN enfermidade
+	NATURAL JOIN descricao_enfermidade
 WHERE p.cpf = <cpf_paciente>
 
 -- Consulta exames pendentes (requisitados mas não realizados) de um paciente
-  	SELECT * FROM consulta
-    	NATURAL JOIN consulta_procedimento
-    	NATURAL JOIN procedimento
-    	NATURAL JOIN exame
-    	NATURAL JOIN descricao_procedimento
-    	WHERE cpf_paciente = <cpf_paciente> AND dados IS NULL
+SELECT * FROM consulta
+	NATURAL JOIN consulta_procedimento
+	NATURAL JOIN procedimento
+	NATURAL JOIN exame
+	NATURAL JOIN descricao_procedimento
+WHERE cpf_paciente = <cpf_paciente> AND dados IS NULL
 
 -- Listando anamnese
-	SELECT *
+SELECT *
 FROM anamnese
-WHERE cpf_medico = <cpf_medico> AND cpf_paciente = <cpf_paciente> AND data_consulta BETWEEN <data_inicio> AND <data_fim>
+WHERE cpf_medico = <cpf_medico> AND cpf_paciente = <cpf_paciente> AND
+	  data_consulta BETWEEN <data_inicio> AND <data_fim>
 
 -- Atualização
 UPDATE pessoa set nome = <nome>, data_nascimento = <data_nascimento>, endereco = <endereco>, telefone = <telefone>, genero = <genero>
@@ -200,9 +201,9 @@ ORDER BY proc.data_procedimento
 -- Consultar procedimentos que não foram realizados por um profissional de uma certa área
 SELECT proc.cod_procedimento, nome_procedimento, data_procedimento, prof.cpf, nome, area
 FROM dadosprocedimento proc NATURAL JOIN profissional_procedimento NATURAL JOIN dadosprofissional prof
-WHERE area <> <area>'
-Cirurgia
-Inserir uma Cirurgia
+WHERE area <> <area>
+--Cirurgia
+--Inserir uma Cirurgia
 INSERT INTO cirurgia VALUES (<cod_procedimento>, <sala>);
 
 -- Consultar cirurgias em um dia por horário
