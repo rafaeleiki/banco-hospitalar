@@ -11,11 +11,11 @@
         CREATE VIEW dados_profissional_especializado AS
         SELECT *
         FROM pessoa
-          NATURAL JOIN (SELECT * FROM profissional_saude ps
+          NATURAL JOIN (SELECT ps.cpf, ps.matricula FROM profissional_saude ps
             LEFT JOIN medico m ON m.cpf = ps.cpf
             LEFT JOIN enfermeiro e ON e.cpf = ps.cpf
             WHERE m.crm IS NULL AND e.coren IS NULL
-          )
+          ) as profissional_especializado
           NATURAL JOIN matricula_area;
 
     -- Dados completos de um medico
