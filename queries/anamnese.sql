@@ -7,6 +7,10 @@
 -- Consulta
 
     -- Listando anamnese
+    SELECT *
+      FROM anamnese
+      WHERE data_consulta BETWEEN <data_inicio> AND <data_fim>;
+
     CREATE OR REPLACE FUNCTION lista_anamnese_periodo(data_inicio timestamp, data_fim timestamp)
       RETURNS SETOF anamnese
       AS
@@ -15,6 +19,11 @@
         WHERE data_consulta BETWEEN data_inicio AND data_fim'
       LANGUAGE 'sql';
 
+    -- Anamneses de um médico com um paciente em um período
+    SELECT *
+      FROM lista_anamnese_periodo(data_inicio, data_fim)
+      WHERE cpf_medico = <cpf_medico>
+        AND cpf_paciente = <cpf_paciente>;
 
     CREATE OR REPLACE FUNCTION lista_anamnese_medico_paciente_periodo(
         param_cpf_medico varchar, param_cpf_paciente varchar,
@@ -27,10 +36,11 @@
           AND cpf_paciente = param_cpf_paciente'
       LANGUAGE 'sql';
 
+    -- Histórico de anamnese de um paciente
+    SELECT * FROM anamnese WHERE cpf_paciente = <cpf_paciente>;
 
     CREATE OR REPLACE FUNCTION historico_anamnese_paciente(param_cpf_paciente varchar)
       RETURNS SETOF anamnese
       AS
       'SELECT * FROM anamnese WHERE cpf_paciente = param_cpf_paciente'
       LANGUAGE 'sql';
-      
