@@ -13,5 +13,8 @@ SELECT * FROM exames_paciente_periodo('34111122200', '2014-04-01', '2014-04-30')
 SELECT * FROM dadosmedico WHERE cpf = '39809294201';
 SELECT * FROM dadosremedio WHERE indicacao ILIKE '%anestesico%';
 SELECT * FROM dadosmedico WHERE endereco NOT LIKE '%Campinas%';
-SELECT * FROM exames_pendentes
+SELECT COUNT(*) FROM exames_pendentes
   WHERE data_procedimento BETWEEN data_consulta AND data_consulta + interval '1 day';
+SELECT area, COUNT(area)
+  FROM matricula_area
+  GROUP BY area;
