@@ -207,4 +207,6 @@ INSERT INTO consulta_procedimento VALUES (<cod_procedimento>, <cpf_medico>,
 	<cpf_paciente>, <data_consulta>)
 
 -- Inserir informações de um Exame
-UPDATE exame WHERE cod_procedimento = <cod_exame> SET dados = <dados>
+UPDATE exame SET dados = <dados> WHERE cod_procedimento = <cod_exame>
+
+-- Consultar exames pendentes de um paciente
