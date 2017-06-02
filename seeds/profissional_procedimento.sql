@@ -1,4 +1,4 @@
-﻿INSERT INTO profissional_procedimento VALUES (34678923412, 12435);
+INSERT INTO profissional_procedimento VALUES (34678923412, 12435);
 INSERT INTO profissional_procedimento VALUES (14545675311, 12435);
 INSERT INTO profissional_procedimento VALUES (79392848399, 12435);
 INSERT INTO profissional_procedimento VALUES (39809294201, 16749);

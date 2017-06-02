@@ -1,4 +1,4 @@
-﻿INSERT INTO descricao_procedimento VALUES (23445, 'Remoção de feto vivo. Incisão transversal');
+INSERT INTO descricao_procedimento VALUES (23445, 'Remoção de feto vivo. Incisão transversal');
 INSERT INTO descricao_procedimento VALUES (39485, 'Desobstruçao da artéria coronária devido a placas de gordura. Utilizando stent de aço');
 INSERT INTO descricao_procedimento VALUES (96984, 'Remoção do apêndice inflamado');
 INSERT INTO descricao_procedimento VALUES (12435, 'Remoção de calculo renal coraliformes');

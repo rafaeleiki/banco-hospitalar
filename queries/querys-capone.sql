@@ -72,23 +72,21 @@ WHERE	cpf_medico 		= <cpf_medico> 		AND
 		data_consulta	= <data_consulta>	AND
 		data_entrada	= <data_entrada>
 -- Busca de internação por data
--- Data da consulta
-SELECT  inter.data_consulta, inter.data_entrada,
-		med.nome AS medico, pac.nome AS paciente
--- BEWARE HERE BE QUERYS
-FROM 	internacao inter, (pessoa NATURAL JOIN medico) med,
-						  (pessoa NATURAL JOIN paciente) pac
+-- Data da consulta teste ok
+SELECT  inter.data_consulta, inter.data_entrada, med.nome as medico, pac.nome as paciente
+FROM 	internacao inter, dadosmedico med,
+						  dadospaciente pac
 WHERE 	inter.cpf_medico 	= <cpf_medico> 		AND
 		inter.cpf_paciente 	= <cpf_paciente> 	AND
 		inter.data_consulta = <data_consulta> 	AND
 		inter.cpf_medico	= med.cpf			AND
 		inter.cpf_paciente 	= pac.cpf
--- Data de Entrada
+
+-- Data de Entrada teste ok
 SELECT  inter.data_consulta, inter.data_entrada, med.nome as medico,
 pac.nome AS paciente
--- BEWARE HERE BE QUERYS
-FROM 	internacao inter, (pessoa NATURAL JOIN medico) med,
-						  (pessoa NATURAL JOIN paciente) pac
+FROM 	internacao inter, dadosmedico med,
+						  dadospaciente pac
 WHERE 	inter.cpf_medico 	= <cpf_medico> 		AND
 		inter.cpf_paciente 	= <cpf_paciente> 	AND
 		inter.data_entrada 	= <data_entrada> 	AND
@@ -109,13 +107,13 @@ INSERT INTO internacao_remedio VALUES (<cpf_medico>,<cpf_paciente>,
 										<data_administração>,
 										<cpf_profissional>, <dosagem>)
 
--- Consultar dados de uma administração
-SELECT ir.data_consulta, ir.data_entrada, med.nome AS medico,
+-- Consultar dados de uma administração teste ok
+SELECT ir.data_consulta, ir.data_entrada,ir.data_administracao, med.nome AS medico,
 pac.nome AS paciente, prof.nome as profissional, r.nome_remedio,
 ir.dosagem
-FROM internacao_remedio ir, (pessoa NATURAL JOIN medico) med,
-							(pessoa NATURAL JOIN paciente) pac,
-							(pessoa NATURAL JOIN profissional_saude) prof,
+FROM internacao_remedio ir, dadosmedico med,
+							dadospaciente pac,
+							dadosprofissional prof,
 							remedio r
 WHERE 	ir.cpf_medico 			= <cpf_medico> 			AND
 		ir.cpf_paciente 		= <cpf_paciente>		AND
@@ -124,18 +122,15 @@ WHERE 	ir.cpf_medico 			= <cpf_medico> 			AND
 		ir.cod_remedio			= <cod_remedio>			AND
 		ir.data_administracao	= <data_administracao>	AND
 		ir.cpf_medico 			= med.cpf				AND
-		ir.cpf_paciente 		= pac.cpf				AND
-		ir.cpf_profissional		= prof.cpf
+		ir.cpf_paciente 		= pac.cpf               AND
+        ir.cpf_profissional 	= prof.cpf	            AND
+		ir.cod_remedio = r.cod_remedio
 
--- Mesma coisa da de cima
--- Consultar o profissional de saúde que administrou um remédio
+-- Consultar o profissional de saúdo que administrou um remédio teste ok
 SELECT ir.data_consulta, ir.data_entrada, med.nome AS medico,
 pac.nome AS paciente, prof.nome as profissional, r.nome_remedio,
 ir.dosagem
-FROM internacao_remedio ir, (pessoa NATURAL JOIN medico) med,
-							(pessoa NATURAL JOIN paciente) pac,
-							(pessoa NATURAL JOIN profissional_saude) prof,
-							remedio r
+FROM internacao_remedio ir, dadosmedico med, dadospaciente pac,dadosprofissional prof, remedio r
 WHERE 	ir.cpf_medico 			= <cpf_medico> 			AND
 		ir.cpf_paciente 		= <cpf_paciente>		AND
 		ir.data_consulta 		= <data_consulta>		AND
@@ -143,10 +138,19 @@ WHERE 	ir.cpf_medico 			= <cpf_medico> 			AND
 		ir.cod_remedio			= <cod_remedio>			AND
 		ir.data_administracao	= <data_administracao>	AND
 		ir.cpf_medico 			= med.cpf				AND
-		ir.cpf_paciente 		= pac.cpf				AND
-		ir.cpf_profissional		= prof.cpf
+		ir.cpf_paciente 		= pac.cpf               AND
+		ir.cpf_profissional 	= prof.cpf	            AND
+		ir.cod_remedio = r.cod_remedio
 
-
+-- Consultar todos os remédios administrados durante uma internacao teste ok
+SELECT ir.data_administracao, prof.nome as profissional, r.nome_remedio, r.indicacao, ir.dosagem
+FROM internacao_remedio ir, dadosprofissional prof, dadosremedio r
+WHERE   ir.cpf_medico 			= <cpf_medico> 			AND
+		ir.cpf_paciente 		= <cpf_paciente>		AND
+		ir.data_consulta 		= <data_consulta>		AND
+		ir.data_entrada 		= <data_entrada>		AND
+		ir.cpf_profissional = prof.cpf AND
+		ir.cod_remedio = r.cod_remedio
 /*	Onde:
 	<cpf_medico>		: varchar (11) único
 	<cpf_paciente>		: varchar (11) único
@@ -162,43 +166,43 @@ WHERE 	ir.cpf_medico 			= <cpf_medico> 			AND
 INSERT INTO consulta_procedimento VALUES (<cod_procedimento>,
 										  <cpf_medico>,<cpf_paciente>,
 										  <data_consulta>)
--- Consultar Detalhes de um procedimento
-SELECT	pac.nome as paciente, med.nome as medico, proc.nome_procedimento, dp.descricao, proc.data_consulta AS
-data, prof.nome as profissional
-FROM 	(procedimento NATURAL JOIN consulta_procedimento) proc,
-		descricao_procedimento dp,
-		profissional_procedimento pp,
-		(pessoa NATURAL JOIN medico) med,
-		(pessoa NATURAL JOIN paciente) pac,
-		(pessoa NATURAL JOIN profissional_saude) prof
-WHERE 	proc.cod_procedimento = 96984 						AND
-		proc.cpf_medico = '45793412345'						AND
-		proc.cpf_paciente = '29812909321' 					AND
-		proc.data_consulta = '2015-03-21 17:32:56.66+00'	AND
-		proc.cpf_paciente = pac.cpf 						AND
-		proc.cpf_medico = med.cpf 							AND
-		pp.cpf = prof.cpf									AND
-		dp.cod_procedimento = proc.cod_procedimento 		AND
-		pp.cod_procedimento = proc.cod_procedimento;
+-- Consultar Detalhes de um procedimento teste ok
+SELECT	pac.nome as paciente, med.nome as medico, prof.nome as quemrealizou, prof.area, proc.nome_procedimento, proc.descricao, proc.data_procedimento
+FROM 	dadosprocedimento as proc NATURAL JOIN consulta_procedimento cp NATURAL JOIN profissional_procedimento pp,
+		dadosmedico med,
+		dadospaciente pac,
+		dadosprofissional prof
+WHERE 	cp.cod_procedimento = <cod_procedimento>	AND
+		cp.cpf_paciente = pac.cpf			AND
+		cp.cpf_medico = med.cpf				AND
+		pp.cpf = prof.cpf
+-- Consultar profissionais que fizeram um procedimento teste ok
+SELECT	proc.cod_procedimento, prof.nome, prof.matricula, prof.area
+FROM 	dadosprocedimento proc NATURAL JOIN profissional_procedimento pp, dadosprofissional prof
+WHERE	proc.cod_procedimento = <cod_procedimento> AND
+	pp.cpf = prof.cpf
 
--- Consultar profissionais que fizeram um procedimento
--- Identico ao de cima
+-- Consultar todos os procedimentos referentes a uma consulta teste ok
+SELECT proc.cod_procedimento, proc.nome_procedimento, proc.descricao, proc.data_procedimento
+FROM consulta_procedimento cp, dadosprocedimento proc
+WHERE cp.cpf_medico = <cpf_medico> AND
+        cp.cpf_paciente = <cpf_paciente> AND
+        cp.data_consulta = <data_consulta> AND
+        cp.cod_procedimento = proc.cod_procedimento
+ORDER BY proc.data_procedimento
 --------------------------------------------------------------------------------
 ----------------------------------Cirurgia--------------------------------------
 -- Inserir uma Cirurgia
 INSERT INTO cirurgia VALUES (<cod_procedimento>, <sala>)
--- Cadastrar uma cirurgia para uma internacao
-INSERT INTO internacao_cirurgia VALUES (<cpf_medico>, <cpf_paciente>,
-	<data_consulta>, <data_entrada>, <cod_procedimento>)
 
--- Consultar cirurgias em um dia por horário
-SELECT	c.data_procedimento, c.sala, c.nome_procedimento
-FROM	(procedimento NATURAL JOIN cirurgia) c
+-- Consultar cirurgias em um dia por horário teste ok
+SELECT	c.data_procedimento, c.cod_procedimento, c.nome_procedimento,  c.sala
+FROM	dadoscirurgia c
 WHERE	c.data_procedimento BETWEEN <data1> and <data2>
 
--- Consultar cirurgias em uma sala
-SELECT	c.cod_procedimento, c.data_procedimento
-FROM	(procedimento NATURAL JOIN cirurgia) c
+-- Consultar cirurgias em uma sala teste ok
+SELECT	c.cod_procedimento, c.nome_procedimento, c.data_procedimento
+FROM	dadoscirurgia c
 WHERE	c.sala = <sala>
 --------------------------------------------------------------------------------
 ------------------------------------Exame---------------------------------------

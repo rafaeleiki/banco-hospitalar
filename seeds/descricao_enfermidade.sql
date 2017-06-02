@@ -1,4 +1,4 @@
-﻿INSERT INTO descricao_enfermidade  VALUES (1, 'Inflamação do canal médio do ouvido. Causa bacteriana');
+INSERT INTO descricao_enfermidade  VALUES (1, 'Inflamação do canal médio do ouvido. Causa bacteriana');
 INSERT INTO descricao_enfermidade  VALUES (2, 'Inflamação dos sinos faciais');
 INSERT INTO descricao_enfermidade  VALUES (3, 'Ingestão de alimento ou agua contaminado por bacteria ou microbio não parasitoide');
 INSERT INTO descricao_enfermidade  VALUES (4, 'Ataque cardiaco. Entupimento da artéria cardiaca');

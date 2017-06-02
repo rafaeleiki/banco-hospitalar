@@ -1,4 +1,4 @@
-﻿INSERT INTO public.descricao_remedio(
+INSERT INTO public.descricao_remedio(
             cod_remedio, indicacao, dosagem_maxima)
     VALUES (1, 'Otite externa bacteriana', '-');
 INSERT INTO public.descricao_remedio  VALUES (2, 'Antialérgico', '5mg/dia');
