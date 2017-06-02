@@ -4,7 +4,7 @@ Receitar um remédio;			Feito
 
 Internação
 Cadastrar uma internação;		Feito
-Fechar uma internação;			WIP
+Fechar uma internação;			Feito
 Busca de internação por data;	Feito
 
 Internação-Remédio:
@@ -65,7 +65,12 @@ INSERT INTO internacao_remedio VALUES (<cpf_medico>,<cpf_paciente>,
 INSERT INTO internacao VALUES (<cpf_medico>, <cpf_paciente>,
 								<data_consulta>, <data_entrada>)
 -- Fechar um internação (?)
-UPDATE internacao WHERE SET
+UPDATE	descricao_internacao
+SET		data_saida		= <data_saida>
+WHERE	cpf_medico 		= <cpf_medico> 		AND
+		cpf_paciente 	= <cpf_paciente>	AND
+		data_consulta	= <data_consulta>	AND
+		data_entrada	= <data_entrada>
 -- Busca de internação por data
 -- Data da consulta
 SELECT  inter.data_consulta, inter.data_entrada,
@@ -158,26 +163,26 @@ INSERT INTO consulta_procedimento VALUES (<cod_procedimento>,
 										  <cpf_medico>,<cpf_paciente>,
 										  <data_consulta>)
 -- Consultar Detalhes de um procedimento
-SELECT	pac.nome, med.nome, proc.nome_procedimento, dp.descricao, proc.data
-FROM 	procedimento proc,
+SELECT	pac.nome as paciente, med.nome as medico, proc.nome_procedimento, dp.descricao, proc.data_consulta AS
+data, prof.nome as profissional
+FROM 	(procedimento NATURAL JOIN consulta_procedimento) proc,
 		descricao_procedimento dp,
-		consulta_procedimento cp,
 		profissional_procedimento pp,
 		(pessoa NATURAL JOIN medico) med,
 		(pessoa NATURAL JOIN paciente) pac,
 		(pessoa NATURAL JOIN profissional_saude) prof
-WHERE 	cp.cod_procedimento = <cod_procedimento> 	AND
-		cp.cpf_medico = <cpf_medico>				AND
-		cp.cpf_paciente = <cpf_paciente> 			AND
-		cp.data_consulta = <data_consulta>			AND
-		cp.cpf_paciente = pac.cpf_paciente 			AND
-		cp.cpf_medico = med.cpf_medico 				AND
-		pp.cpf_profissional = prof.cpf_profissional
+WHERE 	proc.cod_procedimento = 96984 						AND
+		proc.cpf_medico = '45793412345'						AND
+		proc.cpf_paciente = '29812909321' 					AND
+		proc.data_consulta = '2015-03-21 17:32:56.66+00'	AND
+		proc.cpf_paciente = pac.cpf 						AND
+		proc.cpf_medico = med.cpf 							AND
+		pp.cpf = prof.cpf									AND
+		dp.cod_procedimento = proc.cod_procedimento 		AND
+		pp.cod_procedimento = proc.cod_procedimento;
+
 -- Consultar profissionais que fizeram um procedimento
-SELECT	proc.cod_procedimento, pp.nome, pp.matricula
-FROM 	procedimento proc,
-		(profissional_procedimento NATURAL JOIN profissional_saude) pp
-WHERE	proc.cod_procedimento = <cod_procedimento>
+-- Identico ao de cima
 --------------------------------------------------------------------------------
 ----------------------------------Cirurgia--------------------------------------
 -- Inserir uma Cirurgia
