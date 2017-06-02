@@ -1,10 +1,10 @@
-NATURAL JOIN profissional_saude/*Remédios
+/*Remédios
 Cadastrar remédio; 				Feito
 Receitar um remédio;			Feito
 
 Internação
 Cadastrar uma internação;		Feito
-Fechar uma internação;			WIP
+Fechar uma internação;			Feito
 Busca de internação por data;	Feito
 
 Internação-Remédio:
@@ -65,7 +65,12 @@ INSERT INTO internacao_remedio VALUES (<cpf_medico>,<cpf_paciente>,
 INSERT INTO internacao VALUES (<cpf_medico>, <cpf_paciente>,
 								<data_consulta>, <data_entrada>);
 -- Fechar um internação (?)
-UPDATE internacao WHERE SET
+UPDATE	descricao_internacao
+SET		data_saida		= <data_saida>
+WHERE	cpf_medico 		= <cpf_medico> 		AND
+		cpf_paciente 	= <cpf_paciente>	AND
+		data_consulta	= <data_consulta>	AND
+		data_entrada	= <data_entrada>
 -- Busca de internação por data
 -- Data da consulta teste ok
 SELECT  inter.data_consulta, inter.data_entrada, med.nome as medico, pac.nome as paciente
@@ -206,7 +211,7 @@ INSERT INTO consulta_procedimento VALUES (<cod_procedimento>, <cpf_medico>,
 	<cpf_paciente>, <data_consulta>);
 
 -- Inserir informações de um Exame
-UPDATE exame WHERE cod_procedimento = <cod_exame> SET dados = <dados>;
+UPDATE exame SET dados = <dados> WHERE cod_procedimento = <cod_exame>;
 
 -- Todos os exames de um período do paciente
 SELECT *
