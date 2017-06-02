@@ -4,3 +4,5 @@ RELATIONS =  %w(pessoa matricula_area paciente profissional_saude remedio
                 profissional_procedimento internacao
                 internacao_remedio enfermidade_remedio descricao_procedimento
                 descricao_internacao descricao_enfermidade consulta_procedimento)
+
+QUERIES_FILES = %w(anamnese consulta paciente profissional)
