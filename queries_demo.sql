@@ -1,5 +1,5 @@
 SELECT * FROM cirurgias_na_sala('1');
-SELECT * FROM internacoes_medico_paciente_data_consulta('45793412345', '24598398512', '2013-01-31 05:26:56.66-02');
+SELECT * FROM internacao_medico_paciente_data_consulta('45793412345', '24598398512', '2013-01-31 05:26:56.66-02');
 SELECT * FROM procedimentos_paciente('23445621412');
 SELECT * FROM remedios_paciente('13894002932');
 SELECT * FROM consultas_geram_procedimentos;
