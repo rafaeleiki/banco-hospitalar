@@ -118,6 +118,7 @@ CREATE TABLE descricao_procedimento (
 
 CREATE TABLE exame (
   cod_procedimento integer PRIMARY KEY REFERENCES procedimento(cod_procedimento),
+  nome_arquivo varchar NOT NULL,
   dados bytea NOT NULL
 );
 
@@ -174,4 +175,3 @@ CREATE TABLE internacao_remedio (
   PRIMARY KEY(cpf_medico, cpf_paciente, data_consulta,
     data_entrada, cod_remedio, data_administracao)
 );
-

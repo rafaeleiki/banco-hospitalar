@@ -2,7 +2,7 @@
 
 -- Inserção
     INSERT INTO pessoa VALUES (<cpf>, <nome>, <data_nascimento>, <endereco>, <telefone>, <genero>);
-    
+
     INSERT INTO profissional_saude VALUES (<cpf>, <matricula>);
 
     INSERT INTO medico VALUES (<cpf>, <crm>);
@@ -17,8 +17,9 @@
 
     UPDATE enfermeiro set coren = <coren> WHERE cpf = <cpf>;
 
--- Consulta 
-    -- Consulta da área de um profissional 
-    SELECT cpf, area as Area 
-    from matricula_area NATURAL JOIN profissional_saude 
-    WHERE cpf = <cpf>
+-- Consulta
+    -- Consulta da área de um profissional
+    SELECT cpf, area as Area
+    FROM matricula_area
+      NATURAL JOIN profissional_saude
+      WHERE cpf = <cpf>;

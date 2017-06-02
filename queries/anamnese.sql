@@ -11,6 +11,17 @@
       FROM anamnese
       WHERE data_consulta BETWEEN <data_inicio> AND <data_fim>;
 
+    -- Anamneses de um médico com um paciente em um período
+    SELECT *
+      FROM lista_anamnese_periodo(data_inicio, data_fim)
+      WHERE cpf_medico = <cpf_medico>
+        AND cpf_paciente = <cpf_paciente>;
+
+    -- Histórico de anamnese de um paciente
+    SELECT * from consulta
+        NATURAL JOIN anamnese
+        WHERE cpf_paciente = <param_cpf_paciente>;
+
     CREATE OR REPLACE FUNCTION lista_anamnese_periodo(data_inicio timestamp, data_fim timestamp)
       RETURNS SETOF anamnese
       AS
@@ -18,12 +29,6 @@
         FROM anamnese
         WHERE data_consulta BETWEEN data_inicio AND data_fim'
       LANGUAGE 'sql';
-
-    -- Anamneses de um médico com um paciente em um período
-    SELECT *
-      FROM lista_anamnese_periodo(data_inicio, data_fim)
-      WHERE cpf_medico = <cpf_medico>
-        AND cpf_paciente = <cpf_paciente>;
 
     CREATE OR REPLACE FUNCTION lista_anamnese_medico_paciente_periodo(
         param_cpf_medico varchar, param_cpf_paciente varchar,
@@ -36,11 +41,14 @@
           AND cpf_paciente = param_cpf_paciente'
       LANGUAGE 'sql';
 
-    -- Histórico de anamnese de um paciente
-    SELECT * FROM anamnese WHERE cpf_paciente = <cpf_paciente>;
-
     CREATE OR REPLACE FUNCTION historico_anamnese_paciente(param_cpf_paciente varchar)
-      RETURNS SETOF anamnese
+      RETURNS TABLE(
+        cpf_medico varchar, cpf_paciente varchar, data_consulta timestamp with time zone,
+        tipo text, pressao integer, temperatura integer, batimentos integer,
+        queixas text, comentarios text, hipoteses text, recomendacoes text
+      )
       AS
-      'SELECT * FROM anamnese WHERE cpf_paciente = param_cpf_paciente'
+      'SELECT * from consulta
+          NATURAL JOIN anamnese
+          WHERE cpf_paciente = param_cpf_paciente'
       LANGUAGE 'sql';
